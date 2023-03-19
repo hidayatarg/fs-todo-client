@@ -77,7 +77,34 @@ function App() {
         }
       })
       .catch((error) => console.log(error));
+  }
 
+  const showAllTodos = () => {
+    getAllTask();
+  }
+
+  const showCompletedTodos = () => {
+    axios
+      .get('http://localhost:4000/api/v1/todo')
+      .then((response) => {
+        if (response.data.success) {
+        const todos = response.data.data.filter(todo => todo.isCompleted === true);
+        setTodos(todos);
+        }
+      })
+      .catch((error) => console.log(error));
+  } 
+  
+  const showUncompletedTodos = () => {
+    axios
+      .get('http://localhost:4000/api/v1/todo')
+      .then((response) => {
+        if (response.data.success) {
+        const todos = response.data.data.filter(todo => todo.isCompleted !== true);
+        setTodos(todos);
+        }
+      })
+      .catch((error) => console.log(error));
   }
 
   return (
@@ -92,10 +119,11 @@ function App() {
           </div>
           <Todos
             todos={todos}
-            handleTaskChanged={(id, isCompleted) =>
-              handleTaskChanged(id, isCompleted)
-            }
+            handleTaskChanged={(id, isCompleted) => handleTaskChanged(id, isCompleted)}
             handleDeleteTodo={(id)=> handleDeleteTodo(id)}
+            showAllTodos={showAllTodos}
+            showCompletedTodos={showCompletedTodos}
+            showUncompletedTodos={showUncompletedTodos}
           />
         </div>
       </header>
