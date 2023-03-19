@@ -65,6 +65,16 @@
 	color: #9ea3b2;
 }
 
+.todo-list {
+  padding-left: 2px;
+  padding-top: 2px;
+}
+
+.task-row {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* .todo-input:focus {
 	border-color: dodgerBlue;
 	box-shadow: 0 0 8px 0 dodgerBlue;
