@@ -7,7 +7,8 @@ import Todos from '../../features/Todos';
 
 function App() {
   const [todos, setTodos] = useState([]);
-  const [inputValue, setInputValue] = useState('test todo');
+  const [inputValue, setInputValue] = useState('Add a new todo');
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     getAllTask();
@@ -31,7 +32,6 @@ function App() {
   }
 
   const handleTaskChanged = (id, status) => {
-    console.log('gelen id', id, ' gelen status', status);
     // start loading
     if (!status) {
       axios
@@ -81,6 +81,7 @@ function App() {
 
   const showAllTodos = () => {
     getAllTask();
+    setFilter('all');
   }
 
   const showCompletedTodos = () => {
@@ -90,6 +91,7 @@ function App() {
         if (response.data.success) {
         const todos = response.data.data.filter(todo => todo.isCompleted === true);
         setTodos(todos);
+        setFilter('completed');
         }
       })
       .catch((error) => console.log(error));
@@ -102,6 +104,7 @@ function App() {
         if (response.data.success) {
         const todos = response.data.data.filter(todo => todo.isCompleted !== true);
         setTodos(todos);
+        setFilter('uncompleted');
         }
       })
       .catch((error) => console.log(error));
@@ -124,6 +127,7 @@ function App() {
             showAllTodos={showAllTodos}
             showCompletedTodos={showCompletedTodos}
             showUncompletedTodos={showUncompletedTodos}
+            filter={filter}
           />
         </div>
       </header>

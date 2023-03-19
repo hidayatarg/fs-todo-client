@@ -95,7 +95,7 @@
 
 .view-type-container {
 	display: flex;
-	margin-left: 17px;
+	margin-left: 10px;
 }
 
 .view-type {
@@ -109,6 +109,19 @@
 	color: #1f2a4b;
 	margin-top: 50px;
 	margin-left: 10px;
+	cursor: pointer;
+}
+.active {
+	height: 18px;
+	font-family: MarkPro;
+	font-size: 14px;
+	font-weight: normal;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	color: #4a77e5;
+	text-decoration: underline;;
 }
 
 /* .todo-input:focus {

@@ -47,9 +47,9 @@ export default function Todos(props) {
 			<div className="views">
 				<div className='view-desc'>Show:</div>
 				<div className="view-type-container">
-					<div className='view-type' onClick={props.showAllTodos}>All</div>
-					<div className='view-type' onClick={props.showCompletedTodos}>Completed</div>
-					<div className='view-type' onClick={props.showUncompletedTodos}>Incompleted</div>
+					<div className={props.filter === 'all' ? 'view-type active': 'view-type'} onClick={props.showAllTodos}>All</div>
+					<div className={props.filter === 'completed' ? 'view-type active': 'view-type'} onClick={props.showCompletedTodos}>Completed</div>
+					<div className={props.filter === 'uncompleted' ? 'view-type active': 'view-type'} onClick={props.showUncompletedTodos}>Incompleted</div>
 				</div>
 			</div>
 		</div>
