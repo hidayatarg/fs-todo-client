@@ -86,28 +86,26 @@ function App() {
   }
 
   const showCompletedTodos = () => {
-    axios
-      .get('http://localhost:4000/api/v1/todo')
-      .then((response) => {
-        if (response.data.success) {
-        const todos = response.data.data.filter(todo => todo.isCompleted === true);
+    agent.Todo.list()
+    .then((response) => {
+      if (response.success) {
+        const todos = response.data.filter(todo => todo.isCompleted === true);
         setTodos(todos);
         setFilter('completed');
-        }
-      })
+      }
+    })
       .catch((error) => console.log(error));
   } 
   
   const showUncompletedTodos = () => {
-    axios
-      .get('http://localhost:4000/api/v1/todo')
-      .then((response) => {
-        if (response.data.success) {
-        const todos = response.data.data.filter(todo => todo.isCompleted !== true);
+    agent.Todo.list()
+    .then((response) => {
+      if (response.success) {
+        const todos = response.data.filter(todo => todo.isCompleted !== true);
         setTodos(todos);
         setFilter('uncompleted');
-        }
-      })
+      }
+    })
       .catch((error) => console.log(error));
   }
 
