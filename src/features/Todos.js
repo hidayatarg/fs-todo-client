@@ -8,7 +8,7 @@ export default function Todos(props) {
 		<div>
 			<ul className="todo-list">
 				{props.todos.map((todo, i) => (
-					<div className="task-row" key={i}>
+					<div className="todo-row" key={i}>
 						<FormGroup>
 							<FormControlLabel
 								control={
@@ -16,7 +16,7 @@ export default function Todos(props) {
 										color="primary"
 										checked={todo.isCompleted}
 										onChange={() =>
-											props.handleTaskChanged(todo.id, todo.isCompleted)
+											props.handleTodoChanged(todo.id, todo.isCompleted)
 										}
 									/>
 								}
@@ -47,9 +47,9 @@ export default function Todos(props) {
 			<div className="views">
 				<div className='view-desc'>Show:</div>
 				<div className="view-type-container">
-					<div className={props.filter === 'all' ? 'view-type active': 'view-type'} onClick={props.showAllTodos}>All</div>
-					<div className={props.filter === 'completed' ? 'view-type active': 'view-type'} onClick={props.showCompletedTodos}>Completed</div>
-					<div className={props.filter === 'uncompleted' ? 'view-type active': 'view-type'} onClick={props.showUncompletedTodos}>Incompleted</div>
+					<div className={props.filter === 'all' ? 'view-type': 'view-type active'} onClick={props.showAllTodos}>All</div>
+					<div className={props.filter === 'completed' ? 'view-type': 'view-type active'} onClick={props.showCompletedTodos}>Completed</div>
+					<div className={props.filter === 'uncompleted' ? 'view-type': 'view-type active'} onClick={props.showUncompletedTodos}>Incompleted</div>
 				</div>
 			</div>
 		</div>

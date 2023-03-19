@@ -4,14 +4,15 @@ import Input from './Input';
 import './App.css';
 import Header from './Header';
 import Todos from '../../features/Todos';
+import agent from '../api/agent';
 
 function App() {
   const [todos, setTodos] = useState([]);
-  const [inputValue, setInputValue] = useState('Add a new todo');
+  const [inputValue, setInputValue] = useState('');
   const [filter, setFilter] = useState('all');
 
   useEffect(() => {
-    getAllTask();
+    getAllTodos();
   }, []);
 
   const handleChange = (event) => {
@@ -20,25 +21,24 @@ function App() {
 
   const handleDeleteTodo= (id) => {
     if (id) {
-      axios
-        .delete(`http://localhost:4000/api/v1/todo/${id}`)
+      agent.Todo.delete(id)
         .then((response) => {
-          if (response.data.success) {
-            getAllTask();
+          if (response.success) {
+            getAllTodos();
           }
         })
         .catch((error) => console.log(error));
     }
   }
 
-  const handleTaskChanged = (id, status) => {
+  const handleTodoChanged = (id, status) => {
     // start loading
     if (!status) {
       axios
         .put(`http://localhost:4000/api/v1/todo/${id}/completed`, null)
         .then((response) => {
           if (response.data.success) {
-            getAllTask();
+            getAllTodos();
           }
         })
         .catch((error) => console.log(error));
@@ -47,40 +47,41 @@ function App() {
         .put(`http://localhost:4000/api/v1/todo/${id}/uncompleted`, null)
         .then((response) => {
           if (response.data.success) {
-            getAllTask();
+            getAllTodos();
           }
         })
         .catch((error) => console.log(error));
     }
   };
 
-  const getAllTask = () => {
-    axios
-      .get('http://localhost:4000/api/v1/todo')
-      .then((response) => setTodos(response.data.data))
-      .catch((error) => console.log(error));
+  const getAllTodos = () => {
+    agent.Todo.list()
+    .then((response) => setTodos(response.data))
+    .catch((error) => console.log(error));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submit');
-    // add to db
-    const task = {
-      "title": inputValue,
-      "isCompleted": false,
+    if (inputValue){
+      const newTodo = {
+        "title": inputValue,
+        "isCompleted": false,
+      }
+
+      agent.Todo.create(newTodo)
+        .then((response) => {
+          if (response.success) {
+            setInputValue('');
+            getAllTodos();
+          }
+        })
+        .catch((error) => console.log(error));
     }
-    axios
-      .post('http://localhost:4000/api/v1/todo/new', task)
-      .then((response) => {
-        if (response.data.success) {
-          getAllTask();
-        }
-      })
-      .catch((error) => console.log(error));
+    // show error message
   }
 
   const showAllTodos = () => {
-    getAllTask();
+    getAllTodos();
     setFilter('all');
   }
 
@@ -122,7 +123,7 @@ function App() {
           </div>
           <Todos
             todos={todos}
-            handleTaskChanged={(id, isCompleted) => handleTaskChanged(id, isCompleted)}
+            handleTodoChanged={(id, isCompleted) => handleTodoChanged(id, isCompleted)}
             handleDeleteTodo={(id)=> handleDeleteTodo(id)}
             showAllTodos={showAllTodos}
             showCompletedTodos={showCompletedTodos}

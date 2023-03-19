@@ -66,7 +66,7 @@
 	padding-top: 2px;
 }
 
-.task-row {
+.todo-row {
 	display: flex;
 	justify-content: space-between;
 }
@@ -129,6 +129,7 @@
 	box-shadow: 0 0 8px 0 dodgerBlue;
 } */
 
+/* import MarkPro font */
 @font-face {
 	font-family: MarkPro;
 	src: url(../../../public/MarkPro.ttf);
