@@ -3,28 +3,32 @@ import axios from 'axios';
 import Input from './Input';
 import './App.css';
 import Header from './Header';
-import Tasks from '../../features/Tasks';
+import Todos from '../../features/Todos';
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState('test todo');
 
   useEffect(() => {
-    axios
-      .get('http://localhost:4000/api/v1/todo')
-      .then((response) => setTodos(response.data.data))
-      .catch((error) => console.log(error));
+    getAllTask();
   }, []);
 
   const handleChange = (event) => {
-    // 👇 Get input value from "event"
     setInputValue(event.target.value);
-    console.log(inputValue);
-    // start loading
-
-
   };
 
+  const handleDeleteTodo= (id) => {
+    if (id) {
+      axios
+        .delete(`http://localhost:4000/api/v1/todo/${id}`)
+        .then((response) => {
+          if (response.data.success) {
+            getAllTask();
+          }
+        })
+        .catch((error) => console.log(error));
+    }
+  }
 
   const handleTaskChanged = (id, status) => {
     console.log('gelen id', id, ' gelen status', status);
@@ -84,15 +88,14 @@ function App() {
           <div className="todo-add">
             <form onSubmit={handleSubmit}>
               <Input onChange={handleChange} value={inputValue} />
-
-
             </form>
           </div>
-          <Tasks
+          <Todos
             todos={todos}
             handleTaskChanged={(id, isCompleted) =>
               handleTaskChanged(id, isCompleted)
             }
+            handleDeleteTodo={(id)=> handleDeleteTodo(id)}
           />
         </div>
       </header>

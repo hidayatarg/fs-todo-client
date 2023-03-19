@@ -22,7 +22,7 @@ export default function Header() {
                     </g>
                 </svg>
             </div>
-            <div className="todo-title">Todo List</div>
+            <p className="todo-title">Todo List</p>
         </div>
     );
 }
