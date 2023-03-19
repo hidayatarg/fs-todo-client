@@ -23,7 +23,10 @@ export default function Todos(props) {
 								label={todo.title}
 							/>
 						</FormGroup>
-						<span className='delete-icon' onClick={() => props.handleDeleteTodo(todo.id)}>
+						<span
+							className="delete-icon"
+							onClick={() => props.handleDeleteTodo(todo.id)}
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="11"
@@ -40,6 +43,15 @@ export default function Todos(props) {
 					</div>
 				))}
 			</ul>
+
+			<div className="views">
+				<div className='view-desc'>Show:</div>
+				<div className="view-type-container">
+					<div className='view-type'>All</div>
+					<div className='view-type'>Completed</div>
+					<div className='view-type'>Incompleted</div>
+				</div>
+			</div>
 		</div>
 	);
 }

@@ -2,7 +2,6 @@
 	text-align: center;
 }
 
-
 .App-header {
 	background-color: #f6f7f8;
 	min-height: 100vh;
@@ -61,17 +60,53 @@
 }
 
 .todo-list {
-  padding-left: 2px;
-  padding-top: 2px;
+	padding-left: 2px;
+	padding-top: 2px;
 }
 
 .task-row {
-  display: flex;
-  justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 .delete-icon {
-  cursor: pointer;
+	cursor: pointer;
+}
+
+.views {
+	display: flex;
+}
+
+.view-desc {
+	width: 17px;
+	height: 18px;
+	margin: 50px 17px 0 0;
+	font-family: MarkPro;
+	font-size: 14px;
+	font-weight: 500;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	color: rgba(31, 42, 75, 0.59);
+}
+
+.view-type-container {
+	display: flex;
+	margin-left: 17px;
+}
+
+.view-type {
+	font-family: MarkPro;
+	font-size: 14px;
+	font-weight: normal;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	color: #1f2a4b;
+	margin-top: 50px;
+	margin-left: 10px;
 }
 
 /* .todo-input:focus {
@@ -79,3 +114,7 @@
 	box-shadow: 0 0 8px 0 dodgerBlue;
 } */
 
+@font-face {
+	font-family: MarkPro;
+	src: url(../../../public/MarkPro.ttf);
+}
