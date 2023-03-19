@@ -34,6 +34,7 @@
 	margin: 25px 72.5px 35px 0.5px;
 	font-size: 22px;
 	font-weight: bold;
+	font-family: MarkPro;
 	font-stretch: normal;
 	font-style: normal;
 	line-height: normal;
@@ -45,6 +46,7 @@
 .todo-input {
 	outline: none;
 	padding: 10px;
+	padding-left: 4px;
 	box-sizing: border-box;
 	transition: 0.3s;
 	width: 100%;
