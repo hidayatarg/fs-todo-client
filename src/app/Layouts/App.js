@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Input from './Input';
 import './App.css';
 import Header from './Header';
@@ -34,23 +33,22 @@ function App() {
   const handleTodoChanged = (id, status) => {
     // start loading
     if (!status) {
-      axios
-        .put(`http://localhost:4000/api/v1/todo/${id}/completed`, null)
-        .then((response) => {
-          if (response.data.success) {
-            getAllTodos();
-          }
-        })
-        .catch((error) => console.log(error));
+      
+      agent.Todo.checkCompleted(id)
+      .then((response) => {
+        if (response.success) {
+          getAllTodos();
+        }
+      })
+      .catch((error) => console.log(error));
     } else {
-      axios
-        .put(`http://localhost:4000/api/v1/todo/${id}/uncompleted`, null)
-        .then((response) => {
-          if (response.data.success) {
-            getAllTodos();
-          }
-        })
-        .catch((error) => console.log(error));
+      agent.Todo.checkUncompleted(id)
+      .then((response) => {
+        if (response.success) {
+          getAllTodos();
+        }
+      })
+      .catch((error) => console.log(error));
     }
   };
 

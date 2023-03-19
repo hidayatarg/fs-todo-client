@@ -15,6 +15,8 @@ const Todo = {
     list: () => request.get(`todo`),
     listOne:(id) => request.get(`todo/${id}`),
     create: (body) => request.post(`todo/new`, body),
+    checkCompleted: (id) => request.put(`todo/${id}/completed`, null),
+    checkUncompleted: (id) => request.put(`todo/${id}/uncompleted`, null),
     delete: (id) => request.delete(`todo/${id}`)
 }
 
