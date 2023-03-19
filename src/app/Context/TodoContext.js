@@ -14,8 +14,9 @@ export function useTodoContext() {
 
 export function TodoProvider({ children }) {
     const [todos, setTodos] = useState([])
+    const [loading, setLoading] = useState(true);
 
-    return <TodoContext.Provider value={{ todos, setTodos }}>
+    return <TodoContext.Provider value={{ todos, setTodos, loading, setLoading }}>
         {children}
     </TodoContext.Provider>
 }

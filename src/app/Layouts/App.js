@@ -2,15 +2,15 @@ import React, { useState, useEffect, useContext } from 'react';
 import Input from './Input';
 import './App.css';
 import Header from './Header';
+import Loading from './Loading';
 import Todos from '../../features/Todos';
 import agent from '../api/agent';
 import {TodoContext} from '../Context/TodoContext'
 
 function App() {
+  const {todos, setTodos, loading, setLoading} = useContext(TodoContext);
   const [inputValue, setInputValue] = useState('');
   const [filter, setFilter] = useState('all');
-
-  const {todos, setTodos} = useContext(TodoContext);
 
   useEffect(() => {
     getAllTodos();
@@ -33,16 +33,16 @@ function App() {
   }
 
   const handleTodoChanged = (id, status) => {
-    // start loading
+    setLoading(true);
     if (!status) {
-      
       agent.Todo.checkCompleted(id)
       .then((response) => {
         if (response.success) {
           getAllTodos();
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
     } else {
       agent.Todo.checkUncompleted(id)
       .then((response) => {
@@ -50,14 +50,16 @@ function App() {
           getAllTodos();
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
     }
   };
 
   const getAllTodos = () => {
     agent.Todo.list()
     .then((response) => setTodos(response.data))
-    .catch((error) => console.log(error));
+    .catch((error) => console.log(error))
+    .finally(() => setLoading(false));
   };
 
   const handleSubmit = (e) => {
@@ -109,6 +111,8 @@ function App() {
       .catch((error) => console.log(error));
   }
 
+  if (loading) return <Loading  message="Loading List..."/>
+  
   return (
     <div className="App">
       <header className="App-header">
