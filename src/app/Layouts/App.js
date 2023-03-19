@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Input from './Input';
 import './App.css';
 import Header from './Header';
 import Todos from '../../features/Todos';
 import agent from '../api/agent';
+import {TodoContext} from '../Context/TodoContext'
 
 function App() {
-  const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [filter, setFilter] = useState('all');
+
+  const {todos, setTodos} = useContext(TodoContext);
 
   useEffect(() => {
     getAllTodos();
